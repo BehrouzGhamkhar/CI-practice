@@ -1,0 +1,23 @@
+running develop
+/usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+running egg_info
+creating ros_SM.egg-info
+writing ros_SM.egg-info/PKG-INFO
+writing dependency_links to ros_SM.egg-info/dependency_links.txt
+writing entry points to ros_SM.egg-info/entry_points.txt
+writing requirements to ros_SM.egg-info/requires.txt
+writing top-level names to ros_SM.egg-info/top_level.txt
+writing manifest file 'ros_SM.egg-info/SOURCES.txt'
+reading manifest file 'ros_SM.egg-info/SOURCES.txt'
+writing manifest file 'ros_SM.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/lib/python3.10/site-packages/ros-SM.egg-link (link to .)
+
+Installed /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM
+running symlink_data
+creating /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ament_index
+creating /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ament_index/resource_index
+creating /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ament_index/resource_index/packages
+symbolically linking /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/resource/ros_SM -> /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ament_index/resource_index/packages
+symbolically linking /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/package.xml -> /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM

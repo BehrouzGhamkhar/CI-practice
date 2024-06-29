@@ -1,0 +1,94 @@
+[0.444s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--symlink-install']
+[0.444s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=2, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x78d781433ca0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x78d7815d9300>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x78d7815d9300>>)
+[0.988s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.988s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.988s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.988s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.988s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.988s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.989s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/behrouz/ros2_ws/src/ros_SM'
+[0.989s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.989s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.989s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.989s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.989s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.989s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.990s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.990s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.990s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.023s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_python' and name 'ros_SM'
+[1.023s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.023s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.023s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.023s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.023s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.105s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.105s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.124s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 20 installed packages in /home/behrouz/ros2_ws/install
+[1.128s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 391 installed packages in /opt/ros/humble
+[1.132s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.332s] Level 5:colcon.colcon_core.verb:set package 'ros_SM' build argument 'cmake_args' from command line to 'None'
+[1.332s] Level 5:colcon.colcon_core.verb:set package 'ros_SM' build argument 'cmake_target' from command line to 'None'
+[1.332s] Level 5:colcon.colcon_core.verb:set package 'ros_SM' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.332s] Level 5:colcon.colcon_core.verb:set package 'ros_SM' build argument 'cmake_clean_cache' from command line to 'False'
+[1.332s] Level 5:colcon.colcon_core.verb:set package 'ros_SM' build argument 'cmake_clean_first' from command line to 'False'
+[1.332s] Level 5:colcon.colcon_core.verb:set package 'ros_SM' build argument 'cmake_force_configure' from command line to 'False'
+[1.332s] Level 5:colcon.colcon_core.verb:set package 'ros_SM' build argument 'ament_cmake_args' from command line to 'None'
+[1.332s] Level 5:colcon.colcon_core.verb:set package 'ros_SM' build argument 'catkin_cmake_args' from command line to 'None'
+[1.332s] Level 5:colcon.colcon_core.verb:set package 'ros_SM' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.333s] DEBUG:colcon.colcon_core.verb:Building package 'ros_SM' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM', 'merge_install': False, 'path': '/home/behrouz/ros2_ws/src/ros_SM', 'symlink_install': True, 'test_result_base': None}
+[1.333s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.335s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.335s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/behrouz/ros2_ws/src/ros_SM' with build type 'ament_python'
+[1.335s] Level 1:colcon.colcon_core.shell:create_environment_hook('ros_SM', 'ament_prefix_path')
+[1.345s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.345s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/hook/ament_prefix_path.ps1'
+[1.346s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/hook/ament_prefix_path.dsv'
+[1.347s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/hook/ament_prefix_path.sh'
+[1.348s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.349s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.983s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/behrouz/ros2_ws/src/ros_SM'
+[1.984s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.984s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.923s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM': PYTHONPATH=/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/prefix_override:/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/build --no-deps symlink_data
+[4.129s] Level 1:colcon.colcon_core.shell:create_environment_hook('ros_SM', 'pythonpath_develop')
+[4.130s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/share/ros_SM/hook/pythonpath_develop.ps1'
+[4.132s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM' returned '0': PYTHONPATH=/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/prefix_override:/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/build --no-deps symlink_data
+[4.132s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/share/ros_SM/hook/pythonpath_develop.dsv'
+[4.133s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/share/ros_SM/hook/pythonpath_develop.sh'
+[4.145s] Level 1:colcon.colcon_core.environment:checking '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM' for CMake module files
+[4.146s] Level 1:colcon.colcon_core.environment:checking '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM' for CMake config files
+[4.147s] Level 1:colcon.colcon_core.environment:checking '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/lib'
+[4.147s] Level 1:colcon.colcon_core.environment:checking '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/bin'
+[4.147s] Level 1:colcon.colcon_core.environment:checking '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/lib/pkgconfig/ros_SM.pc'
+[4.148s] Level 1:colcon.colcon_core.environment:checking '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/lib/python3.10/site-packages'
+[4.148s] Level 1:colcon.colcon_core.shell:create_environment_hook('ros_SM', 'pythonpath')
+[4.148s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/hook/pythonpath.ps1'
+[4.149s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/hook/pythonpath.dsv'
+[4.149s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/hook/pythonpath.sh'
+[4.150s] Level 1:colcon.colcon_core.environment:checking '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/bin'
+[4.150s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(ros_SM)
+[4.151s] INFO:colcon.colcon_core.shell:Creating package script '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/package.ps1'
+[4.153s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/package.dsv'
+[4.155s] INFO:colcon.colcon_core.shell:Creating package script '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/package.sh'
+[4.156s] INFO:colcon.colcon_core.shell:Creating package script '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/package.bash'
+[4.157s] INFO:colcon.colcon_core.shell:Creating package script '/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM/package.zsh'
+[4.159s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/colcon-core/packages/ros_SM)
+[4.160s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[4.161s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[4.161s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[4.161s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[4.207s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[4.207s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[4.208s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[4.240s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[4.241s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/behrouz/ros2_ws/src/ros_SM/install/local_setup.ps1'
+[4.243s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/behrouz/ros2_ws/src/ros_SM/install/_local_setup_util_ps1.py'
+[4.250s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/behrouz/ros2_ws/src/ros_SM/install/setup.ps1'
+[4.254s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/behrouz/ros2_ws/src/ros_SM/install/local_setup.sh'
+[4.255s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/behrouz/ros2_ws/src/ros_SM/install/_local_setup_util_sh.py'
+[4.256s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/behrouz/ros2_ws/src/ros_SM/install/setup.sh'
+[4.265s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/behrouz/ros2_ws/src/ros_SM/install/local_setup.bash'
+[4.266s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/behrouz/ros2_ws/src/ros_SM/install/setup.bash'
+[4.270s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/behrouz/ros2_ws/src/ros_SM/install/local_setup.zsh'
+[4.277s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/behrouz/ros2_ws/src/ros_SM/install/setup.zsh'

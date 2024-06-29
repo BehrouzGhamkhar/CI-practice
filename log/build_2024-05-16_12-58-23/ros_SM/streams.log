@@ -1,0 +1,25 @@
+[1.586s] Invoking command in '/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM': PYTHONPATH=/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/prefix_override:/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/build --no-deps symlink_data
+[2.280s] running develop
+[2.281s] /usr/lib/python3/dist-packages/setuptools/command/easy_install.py:158: EasyInstallDeprecationWarning: easy_install command is deprecated. Use build and pip and other standards-based tools.
+[2.281s]   warnings.warn(
+[2.725s] running egg_info
+[2.725s] creating ros_SM.egg-info
+[2.726s] writing ros_SM.egg-info/PKG-INFO
+[2.728s] writing dependency_links to ros_SM.egg-info/dependency_links.txt
+[2.728s] writing entry points to ros_SM.egg-info/entry_points.txt
+[2.728s] writing requirements to ros_SM.egg-info/requires.txt
+[2.729s] writing top-level names to ros_SM.egg-info/top_level.txt
+[2.730s] writing manifest file 'ros_SM.egg-info/SOURCES.txt'
+[2.733s] reading manifest file 'ros_SM.egg-info/SOURCES.txt'
+[2.735s] writing manifest file 'ros_SM.egg-info/SOURCES.txt'
+[2.739s] running build_ext
+[2.739s] Creating /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/lib/python3.10/site-packages/ros-SM.egg-link (link to .)
+[2.741s] 
+[2.742s] Installed /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM
+[2.742s] running symlink_data
+[2.742s] creating /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ament_index
+[2.744s] creating /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ament_index/resource_index
+[2.744s] creating /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ament_index/resource_index/packages
+[2.744s] symbolically linking /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/resource/ros_SM -> /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ament_index/resource_index/packages
+[2.745s] symbolically linking /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/package.xml -> /home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/share/ros_SM
+[2.795s] Invoked command in '/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM' returned '0': PYTHONPATH=/home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/prefix_override:/home/behrouz/ros2_ws/src/ros_SM/install/ros_SM/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --editable --build-directory /home/behrouz/ros2_ws/src/ros_SM/build/ros_SM/build --no-deps symlink_data
