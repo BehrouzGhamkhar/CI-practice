@@ -30,12 +30,11 @@ class MonitorBatteryAndCollision(smach.State):
         self.vel_cmd = Twist()
         self.pub_cmd_vel = self.node.create_publisher(Twist, "/cmd_vel", 10)
         time = self.node.create_timer(0.2, self.callback)
-        self.odom_data_sub = self.node.create_subscription(Odometry, "/odom", self.odom_callback, 10)
+        #self.odom_data_sub = self.node.create_subscription(Odometry, "/odom", self.odom_callback, 10)
         self.scan_data_sub = self.node.create_subscription(LaserScan, "/scan", self.scan_callback, 10)
+        self.battery_sub = self.node.create_subscription(String, "/battery", self.battery_callback, 10)
 
         self.collision = "False"
-
-        self.battery_sub = self.node.create_subscription(String, "/battery", self.battery_callback, 10)
         self.threshold = 30
         self.battery_level = 50
         self.collision_distance = 0.5
@@ -48,6 +47,7 @@ class MonitorBatteryAndCollision(smach.State):
 
         self.collision = self.check_collision(data)
         self.node.get_logger().info(f"Monitor State: Getting collision data: {self.collision}")
+        self.move_forward()
 
     def check_collision(self, data):
         for distance in data.ranges:
@@ -55,12 +55,16 @@ class MonitorBatteryAndCollision(smach.State):
                 return True
         return False
 
-    def odom_callback(self, data):
+    def move_forward(self):
+        self.vel_cmd.linear.x = 1.0 if not self.collision else 0.0
 
-        position = data.pose.pose.position
-        orientation = data.pose.pose.orientation
 
-        self.robile_position = np.array([position.x, position.y])
+    # def odom_callback(self, data):
+    #
+    #     position = data.pose.pose.position
+    #     orientation = data.pose.pose.orientation
+    #
+    #     self.robile_position = np.array([position.x, position.y])
 
     def callback(self):
         self.pub_cmd_vel.publish(self.vel_cmd)
