@@ -6,7 +6,10 @@ import smach
 
 from std_msgs.msg import String
 from sensor_msgs.msg import LaserScan
+from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Twist
+# import tf_transformations, tf2_ros, tf2_geometry_msgs
+import numpy as np
 import yaml
 import time
 
@@ -24,20 +27,44 @@ class MonitorBatteryAndCollision(smach.State):
                              output_keys=['collision_output'])
         self.node = node
 
-        self.collision_sub = self.node.create_subscription(String, "/collision", self.collision_callback, 10)
+        self.vel_cmd = Twist()
+        self.pub_cmd_vel = self.node.create_publisher(Twist, "/cmd_vel", 10)
+        time = self.node.create_timer(0.2, self.callback)
+        self.odom_data_sub = self.node.create_subscription(Odometry, "/odom", self.odom_callback, 10)
+        self.scan_data_sub = self.node.create_subscription(LaserScan, "/scan", self.scan_callback, 10)
+
         self.collision = "False"
 
         self.battery_sub = self.node.create_subscription(String, "/battery", self.battery_callback, 10)
         self.threshold = 30
-        self.battery_level = 10
+        self.battery_level = 50
+        self.collision_distance = 0.5
 
     def battery_callback(self, msg):
         self.node.get_logger().info(f"Monitor State: Getting battery level: {msg.data}")
         self.battery_level = int(msg.data)
 
-    def collision_callback(self, msg):
-        self.node.get_logger().info(f"Monitor State: Getting collision data: {msg.data}")
-        self.collision = msg.data
+    def scan_callback(self, data):
+
+        self.collision = self.check_collision(data)
+        self.node.get_logger().info(f"Monitor State: Getting collision data: {self.collision}")
+
+    def check_collision(self, data):
+        for distance in data.ranges:
+            if distance < self.collision_distance:
+                return True
+        return False
+
+    def odom_callback(self, data):
+
+        position = data.pose.pose.position
+        orientation = data.pose.pose.orientation
+
+        self.robile_position = np.array([position.x, position.y])
+
+    def callback(self):
+        self.pub_cmd_vel.publish(self.vel_cmd)
+
 
     def execute(self, userdata):
         # TODO: implement state execution logic and return outcome
