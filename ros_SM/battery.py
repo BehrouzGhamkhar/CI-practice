@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 import random as rnd
-1
+
 
 class Battery(Node):
     def __init__(self, node_name: str):
