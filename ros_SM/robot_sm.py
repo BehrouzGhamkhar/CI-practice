@@ -8,6 +8,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import LaserScan
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Twist
+from enum import Enum
 # import tf_transformations, tf2_ros, tf2_geometry_msgs
 import numpy as np
 import yaml
@@ -16,6 +17,13 @@ import time
 
 # Reference: https://wiki.ros.org/smach/Tutorials/Simple%20State%20Machine [but in ROS1]
 
+class MotionType(Enum):
+    stop = 1
+    move_forward = 2
+    rotate_in_place = 3
+    move_to_safe = 4
+
+
 class MonitorBatteryAndCollision(smach.State):
     """State to monitor the battery level and possible collisions
     """
@@ -23,31 +31,30 @@ class MonitorBatteryAndCollision(smach.State):
     def __init__(self, node):
         # TODO: define outcomes, class variables, and desired publisher/subscribers
         # YOUR CODE HERE
-        smach.State.__init__(self, outcomes=["below_threshold", "collision", "monitor"],
+        smach.State.__init__(self, outcomes=["below_threshold", "collision", "move"],
                              output_keys=['collision_output'])
         self.node = node
 
-        self.vel_cmd = Twist()
-        self.pub_cmd_vel = self.node.create_publisher(Twist, "/cmd_vel", 10)
-        time = self.node.create_timer(0.2, self.callback)
-        #self.odom_data_sub = self.node.create_subscription(Odometry, "/odom", self.odom_callback, 10)
+        # self.odom_data_sub = self.node.create_subscription(Odometry, "/odom", self.odom_callback, 10)
         self.scan_data_sub = self.node.create_subscription(LaserScan, "/scan", self.scan_callback, 10)
         self.battery_sub = self.node.create_subscription(String, "/battery", self.battery_callback, 10)
 
-        self.collision = "False"
+        self.collision_pub = self.node.create_publisher(String, "/collision", 10)
+        self.collision = False
         self.threshold = 30
         self.battery_level = 50
-        self.collision_distance = 0.5
+        self.collision_distance = 0.4
 
     def battery_callback(self, msg):
         self.node.get_logger().info(f"Monitor State: Getting battery level: {msg.data}")
         self.battery_level = int(msg.data)
 
     def scan_callback(self, data):
-
+        msg = String()
         self.collision = self.check_collision(data)
+        msg.data = str(self.collision)
+        self.collision_pub.publish(msg)
         self.node.get_logger().info(f"Monitor State: Getting collision data: {self.collision}")
-        self.move_forward()
 
     def check_collision(self, data):
         for distance in data.ranges:
@@ -55,28 +62,12 @@ class MonitorBatteryAndCollision(smach.State):
                 return True
         return False
 
-    def move_forward(self):
-        self.vel_cmd.linear.x = 1.0 if not self.collision else 0.0
-
-
-    # def odom_callback(self, data):
-    #
-    #     position = data.pose.pose.position
-    #     orientation = data.pose.pose.orientation
-    #
-    #     self.robile_position = np.array([position.x, position.y])
-
-    def callback(self):
-        self.pub_cmd_vel.publish(self.vel_cmd)
-
-
     def execute(self, userdata):
         # TODO: implement state execution logic and return outcome
         # YOUR CODE HERE
         rclpy.spin_once(self.node)
         userdata.collision_output = self.collision
-
-        if self.collision == "True":
+        if self.collision:
             self.node.get_logger().info("Robile is about to collide...")
             return "collision"
 
@@ -85,7 +76,34 @@ class MonitorBatteryAndCollision(smach.State):
             return "below_threshold"
 
         else:
-            return "monitor"
+            temp_vel = Twist()
+            temp_vel.linear.x = 1.0
+            userdata.cmd_vel_output = temp_vel
+            self.node.get_logger().info("Robile is Moving...")
+            return "move"
+
+
+class ApplyMotion(smach.State):
+    """State to stop the robot's motion
+    """
+
+    def __init__(self, node):
+        # TODO: define outcomes, class variables, and desired publisher/subscribers
+        # YOUR CODE HERE
+        smach.State.__init__(self, outcomes=["monitor"])
+        self.node = node
+        self.vel_cmd = Twist()
+        self.pub_cmd_vel = self.node.create_publisher(Twist, "/cmd_vel", 10)
+
+
+
+    def execute(self, userdata):
+        # TODO: implement state execution logic and return outcome
+        # YOUR CODE HERE
+        rclpy.spin_once(self.node)
+        self.vel_cmd.linear.x = 1.0
+        self.pub_cmd_vel.publish(self.vel_cmd)
+        return "monitor"
 
 
 class RotateBase(smach.State):
@@ -98,7 +116,7 @@ class RotateBase(smach.State):
         smach.State.__init__(self, outcomes=["above_threshold", "monitor"])
         self.node = node
         self.battery_sub = self.node.create_subscription(String, "/battery", self.battery_callback, 10)
-        self.battery_level = 10
+        self.battery_level = 50
         self.threshold = 30
 
     def battery_callback(self, msg):
@@ -132,6 +150,7 @@ class StopMotion(smach.State):
         # YOUR CODE HERE
         smach.State.__init__(self, outcomes=["stopped"])
         self.node = node
+        self.pub_cmd_vel = self.node.create_publisher(Twist, "/cmd_vel", 10)
 
     def execute(self, userdata):
         # TODO: implement state execution logic and return outcome
@@ -142,7 +161,10 @@ class StopMotion(smach.State):
         return "stopped"
 
     def stop_motion(self):
-        pass
+        cmd_vel = Twist()
+        cmd_vel.linear.x = 0.0
+        self.pub_cmd_vel.publish(cmd_vel)
+
 
 
 # TODO: define any additional states if necessary
@@ -155,26 +177,52 @@ class ManuallyMoveToSafeDistance(smach.State):
         # YOUR CODE HERE
         smach.State.__init__(self, outcomes=["safe_distance"], input_keys=['collision_input'])
         self.node = node
-        self.safe_distance = False
+        self.collision = False
+        self.pub_cmd_vel = self.node.create_publisher(Twist, "/cmd_vel", 10)
+        self.sub_collision = self.node.create_subscription(String, "/collision", self.collision_callback, 10)
+        self.cmd_vel = Twist()
+
+    def collision_callback(self, msg):
+        self.node.get_logger().info(f"Monitor State: Getting collision data: {msg.data}")
+        self.collision = bool(msg.data)
 
     def execute(self, userdata):
         # TODO: implement state execution logic and return outcome
         # YOUR CODE HERE
         rclpy.spin_once(self.node)
 
-        if userdata.collision_input == "True":
+        if self.collision:
             return self.move_to_safe_distance(userdata)
 
-        elif userdata.collision_input == "False":
+        elif not self.collision:
             return self.set_safe_distance(userdata)
 
     def move_to_safe_distance(self, userdata):
         self.node.get_logger().info("Moving to a safe distance...")
+
+        # move back a bit
+        self.cmd_vel.linear.x = - 1.0
+        self.pub_cmd_vel.publish(self.cmd_vel)
+        rclpy.spin_once(self.node, timeout_sec=1.0)
+
+        self.stop_robile()
+
+        # Rotate to the right
+        self.cmd_vel.angular.z = -1.5
+        self.pub_cmd_vel.publish(self.cmd_vel)
+        rclpy.spin_once(self.node, timeout_sec=1.0)
+
+        self.stop_robile()
         return self.set_safe_distance(userdata)
+
+    def stop_robile(self):
+        self.cmd_vel.linear.x = 0.0
+        self.cmd_vel.angular.z = 0.0
+        self.pub_cmd_vel.publish(self.cmd_vel)
+        rclpy.spin_once(self.node, timeout_sec=0.5)
 
     def set_safe_distance(self, userdata):
         self.node.get_logger().info("Robile is now in a safe distance...")
-        self.safe_distance = True
         return "safe_distance"
 
 
@@ -190,7 +238,7 @@ def main(args=None):
     # Create a SMACH state machine
 
     state_machine = smach.StateMachine(outcomes=['robot_sm'])
-    state_machine.userdata.collision = "False"
+    state_machine.userdata.collision = False
 
     # Open the container
     # Add states to the container
@@ -199,8 +247,11 @@ def main(args=None):
         smach.StateMachine.add('Monitor_Battery_And_Collision', MonitorBatteryAndCollision(node),
                                transitions={'below_threshold': 'Rotate_Base',
                                             'collision': 'Stop_Motion',
-                                            'monitor': 'Monitor_Battery_And_Collision'},
+                                            'move': 'Apply_Motion'},
                                remapping={'collision_output': 'collision'})
+
+        smach.StateMachine.add('Apply_Motion', ApplyMotion(node),
+                               transitions={'monitor': 'Monitor_Battery_And_Collision'})
 
         smach.StateMachine.add('Rotate_Base', RotateBase(node),
                                transitions={'above_threshold': 'Monitor_Battery_And_Collision',
