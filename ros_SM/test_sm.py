@@ -33,6 +33,14 @@ class TestMonitorBatteryAndCollision(unittest.TestCase):
         self.assertEqual(outcome, "collision")
         self.assertTrue(userdata.collision_output)
 
+    @patch('robot_sm.rclpy.spin_once')
+    def test_execute_below_threshold(self, mock_spin_once):
+        self.state.battery_level = 20
+        userdata = MagicMock()
+        outcome = self.state.execute(userdata)
+        self.assertEqual(outcome, "below_threshold")
+        self.assertEqual(userdata.battery_output, 20)
+
 # Define more unit tests for RotateBase, StopMotion, and ManuallyMoveToSafeDistance following the above patterns
 
 if __name__ == '__main__':
