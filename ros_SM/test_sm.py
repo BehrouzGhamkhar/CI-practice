@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 from robot_sm import MonitorBatteryAndCollision, ApplyMotion, RotateBase, StopMotion, ManuallyMoveToSafeDistance
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import String
@@ -25,7 +25,13 @@ class TestMonitorBatteryAndCollision(unittest.TestCase):
         data.ranges = [-1.0, -2.0]
         self.assertFalse(self.state.check_collision(data))
 
-
+    @patch('robot_sm.rclpy.spin_once')
+    def test_execute_collision(self, mock_spin_once):
+        self.state.collision = True
+        userdata = MagicMock()
+        outcome = self.state.execute(userdata)
+        self.assertEqual(outcome, "collision")
+        self.assertTrue(userdata.collision_output)
 
 # Define more unit tests for RotateBase, StopMotion, and ManuallyMoveToSafeDistance following the above patterns
 
