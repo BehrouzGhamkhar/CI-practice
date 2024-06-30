@@ -17,19 +17,11 @@ import time
 
 # Reference: https://wiki.ros.org/smach/Tutorials/Simple%20State%20Machine [but in ROS1]
 
-class MotionType(Enum):
-    stop = 1
-    move_forward = 2
-    rotate_in_place = 3
-    move_to_safe = 4
-
-
 class MonitorBatteryAndCollision(smach.State):
     """State to monitor the battery level and possible collisions
     """
 
     def __init__(self, node):
-        # TODO: define outcomes, class variables, and desired publisher/subscribers
 
         smach.State.__init__(self, outcomes=["below_threshold", "collision", "move"],
                              output_keys=['collision_output', 'battery_output'])
@@ -63,7 +55,6 @@ class MonitorBatteryAndCollision(smach.State):
         return False
 
     def execute(self, userdata):
-        # TODO: implement state execution logic and return outcome
 
         rclpy.spin_once(self.node)
         userdata.collision_output = self.collision
@@ -107,7 +98,6 @@ class RotateBase(smach.State):
     """
 
     def __init__(self, node):
-        # TODO: define outcomes, class variables, and desired publisher/subscribers
 
         smach.State.__init__(self, outcomes=["above_threshold", "monitor"],
                              input_keys=["battery_input"])
@@ -118,7 +108,6 @@ class RotateBase(smach.State):
         self.vel_cmd = Twist()
 
     def execute(self, userdata):
-        # TODO: implement state execution logic and return outcome
 
         rclpy.spin_once(self.node)
 
@@ -141,15 +130,11 @@ class StopMotion(smach.State):
     """
 
     def __init__(self, node):
-        # TODO: define outcomes, class variables, and desired publisher/subscribers
-
         smach.State.__init__(self, outcomes=["stopped"])
         self.node = node
         self.pub_cmd_vel = self.node.create_publisher(Twist, "/cmd_vel", 10)
 
     def execute(self, userdata):
-        # TODO: implement state execution logic and return outcome
-
         rclpy.spin_once(self.node)
         self.stop_motion()
         self.node.get_logger().info("Robile is stopped...")
@@ -167,7 +152,6 @@ class ManuallyMoveToSafeDistance(smach.State):
     """
 
     def __init__(self, node):
-        # TODO: define outcomes, class variables, and desired publisher/subscribers
 
         smach.State.__init__(self, outcomes=["safe_distance"], input_keys=['collision_input'])
         self.node = node
@@ -181,7 +165,6 @@ class ManuallyMoveToSafeDistance(smach.State):
         self.collision = bool(msg.data)
 
     def execute(self, userdata):
-        # TODO: implement state execution logic and return outcome
 
         rclpy.spin_once(self.node)
 
@@ -223,8 +206,6 @@ class ManuallyMoveToSafeDistance(smach.State):
 def main(args=None):
     """Main function to initialise and execute the state machine
     """
-
-    # TODO: initialise a ROS2 node, set any threshold values, and define the state machine
 
     rclpy.init(args=args)
 
