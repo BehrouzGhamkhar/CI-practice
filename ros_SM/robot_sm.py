@@ -50,7 +50,7 @@ class MonitorBatteryAndCollision(smach.State):
 
     def check_collision(self, data):
         for distance in data.ranges:
-            if distance < self.collision_distance:
+            if 0 < distance < self.collision_distance:
                 return True
         return False
 
@@ -61,7 +61,7 @@ class MonitorBatteryAndCollision(smach.State):
         userdata.battery_output = self.battery_level
 
         if self.collision:
-            self.node.get_logger().info("Robile is about to collide...")
+            #self.node.get_logger().info("Robile is about to collide...")
             return "collision"
 
         elif self.battery_level < self.threshold:
