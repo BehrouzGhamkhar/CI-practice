@@ -48,8 +48,9 @@ jobs:
 
     - name: Build the workspace
       run: |
-        source /opt/ros/humble/setup.bash
+        cd ~
         cd ros2_ws
+        source /opt/ros/humble/setup.bash
         colcon build
         
     - name: Lint with flake8
