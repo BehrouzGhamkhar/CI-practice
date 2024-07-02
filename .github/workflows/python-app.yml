@@ -26,9 +26,30 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install rclpy
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+
+    - name: Set up ROS 2 Humble environment
+      run: |
+
+        sudo apt install -y ros-humble-desktop
+        echo "source /opt/ros/humble/setup.bash" >> $GITHUB_ENV
+        sudo apt install -y python3-colcon-common-extensions
+        sudo apt install -y python3-rosdep
+        sudo rosdep init
+        rosdep update
+
+    - name: Install dependencies
+      run: |
+        source /opt/ros/humble/setup.bash
+        rosdep install --from-paths src --ignore-src -r -y
+
+    - name: Build the workspace
+      run: |
+        source /opt/ros/humble/setup.bash
+        colcon build
+        
     - name: Lint with flake8
       run: |
         cd ros_SM
