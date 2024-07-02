@@ -45,15 +45,11 @@ jobs:
         sudo rosdep init
         rosdep update
 
-    - name: Install dependencies
-      run: |
-        source /opt/ros/humble/setup.bash
-        cd ros2_ws
-        rosdep install --from-paths src --ignore-src -r -y
 
     - name: Build the workspace
       run: |
         source /opt/ros/humble/setup.bash
+        cd ros2_ws
         colcon build
         
     - name: Lint with flake8
