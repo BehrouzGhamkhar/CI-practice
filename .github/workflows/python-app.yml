@@ -19,4 +19,4 @@ jobs:
       - name: Test with unittest
         run: |
           cd ros_SM
-          python -m unittest discover -v 'test_sm.py'
+          python -m unittest -v 'test_sm.py'
