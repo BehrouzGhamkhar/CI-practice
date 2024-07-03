@@ -22,7 +22,8 @@ setup(
         'console_scripts': [
         	"robot_sm = ros_SM.robot_sm:main",
         	"battery = ros_SM.battery:main",
-         	"collision = ros_SM.collision:main"
+         	"collision = ros_SM.collision:main",
+         	"test_sm = ros_SM.test_sm:main"
         ],
     },
 )
