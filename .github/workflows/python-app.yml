@@ -45,10 +45,6 @@ jobs:
         sudo rosdep init
         rosdep update
 
-    - name: Install dependencies
-      run: |
-        source /opt/ros/humble/setup.bash
-        rosdep install --from-paths src --ignore-src -r -y
 
     - name: Build the workspace
       run: |
